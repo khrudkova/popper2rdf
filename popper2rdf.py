@@ -25,6 +25,20 @@ def popper2rdf(dataset_name,
                negation_prefix='not_',
                subject_true=True,
                subject_false=False):
+    """
+    Method for converting Popper Prolog files to N-Triples.
+    :param dataset_name: name of the folder, where BK and examples are located
+    :param input_path: path to the input files
+    :param output_path: destination for the output file
+    :param universal_predicate_1: universal predicate for atoms with arity = 1
+    :param subject_prefix: prefix for artificial subject for atoms where arity > 2
+    :param predicate_suffix: prefix for predicates for atoms where arity > 2
+    :param remove_spaces: optional removal of spaces in text
+    :param negation_prefix: prefix for predicates of negative examples
+    :param subject_true: value that should be assigned to positive examples with arity = 1
+    :param subject_false: value that should be assigned to negative examples with arity = 1
+    :return: N-Triples file
+    """
 
     if input_path is None:
         input_path = ''
