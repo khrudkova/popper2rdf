@@ -1,0 +1,128 @@
+[
+  {
+    "name": "LoadGraph",
+    "parameters": {
+      "path": "/zendo/trains1_popper_ver.nt"
+    }
+  },
+  {
+    "name": "Index",
+    "parameters": {
+      "train": [],
+      "test": []
+    }
+  },
+  {
+    "name": "Mine",
+    "parameters": {
+      "thresholds": [
+        {
+          "name": "MaxRuleLength",
+          "value": 6
+        },
+        {
+          "name": "MinHeadSize",
+          "value": 2
+        },
+        {
+          "name": "MinHeadCoverage",
+          "value": 0.35
+        },
+        {
+          "name": "LocalTimeout",
+          "value": 1000,
+          "me": 0,
+          "dme": false
+        }
+      ],
+      "ruleConsumers": [
+        {
+          "name": "inMemory"
+        }
+      ],
+      "patterns": [
+        {
+          "body": [],
+          "head": {
+            "subject": {
+              "name": "Any"
+            },
+            "predicate": {
+              "name": "Constant",
+              "value": "<f>"
+            },
+            "object": {
+              "name": "Constant",
+              "value": "true"
+            },
+            "graph": {
+              "name": "Any"
+            }
+          },
+          "exact": false,
+          "orderless": true
+        }
+      ],
+      "constraints": [
+        {
+          "name": "OnlyObjectConstants"
+        }
+      ],
+      "parallelism": 0
+    }
+  },
+  {
+    "name": "ComputeConfidence",
+    "parameters": {
+      "name": "StandardConfidence",
+      "min": 0.75
+    }
+  },
+  {
+    "name": "Predict",
+    "parameters": {
+      "rules": [],
+      "chooseTestSet": false,
+      "predictedResults": [],
+      "headVariablePreMapping": {
+        "type": "noMapping"
+      },
+      "injectiveMapping": true,
+      "mergeTestAndTrainForPrediction": true,
+      "onlyTestCoveredPredictions": false
+    }
+  },
+  {
+    "name": "GroupPredictions",
+    "parameters": {
+      "useScorer": true,
+      "scorer": {
+        "type": "maximum",
+        "confidence": "default"
+      },
+      "useConsumer": false,
+      "confidence": "default"
+    }
+  },
+  {
+    "name": "ToPredictionTasks",
+    "parameters": {
+      "confidence": "default",
+      "generator": {
+        "type": "testPatterns",
+        "patterns": [
+          {
+            "p": "<f>",
+            "targetVariable": "object"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "name": "Evaluate",
+    "parameters": {
+      "ranking": "test"
+    }
+  }
+]

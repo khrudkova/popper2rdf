@@ -1,0 +1,505 @@
+[
+  {
+    "name": "LoadGraph",
+    "parameters": {
+      "path": "/zendo/imdb3.nt"
+    }
+  },
+  {
+    "name": "Index",
+    "parameters": {
+      "train": [],
+      "test": []
+    }
+  },
+  {
+    "name": "Mine",
+    "parameters": {
+      "thresholds": [
+        {
+          "name": "MaxRuleLength",
+          "value": 6
+        },
+        {
+          "name": "LocalTimeout",
+          "value": 5000,
+          "me": 0.05,
+          "dme": false
+        }
+      ],
+      "ruleConsumers": [
+        {
+          "name": "inMemory"
+        }
+      ],
+      "patterns": [
+        {
+          "body": [
+            {
+              "subject": {
+                "name": "Any"
+              },
+              "predicate": {
+                "name": "NoneOf",
+                "value": [
+                  "<not_f>",
+                  "<f>"
+                ]
+              },
+              "object": {
+                "name": "Any"
+              },
+              "graph": {
+                "name": "Any"
+              }
+            }
+          ],
+          "head": {
+            "subject": {
+              "name": "Any"
+            },
+            "predicate": {
+              "name": "Constant",
+              "value": "<f>"
+            },
+            "object": {
+              "name": "Any"
+            },
+            "graph": {
+              "name": "Any"
+            }
+          },
+          "exact": true,
+          "orderless": true
+        },
+        {
+          "body": [
+            {
+              "subject": {
+                "name": "Any"
+              },
+              "predicate": {
+                "name": "NoneOf",
+                "value": [
+                  "<not_f>",
+                  "<f>"
+                ]
+              },
+              "object": {
+                "name": "Any"
+              },
+              "graph": {
+                "name": "Any"
+              }
+            },
+            {
+              "subject": {
+                "name": "Any"
+              },
+              "predicate": {
+                "name": "NoneOf",
+                "value": [
+                  "<not_f>",
+                  "<f>"
+                ]
+              },
+              "object": {
+                "name": "Any"
+              },
+              "graph": {
+                "name": "Any"
+              }
+            }
+          ],
+          "head": {
+            "subject": {
+              "name": "Any"
+            },
+            "predicate": {
+              "name": "Constant",
+              "value": "<f>"
+            },
+            "object": {
+              "name": "Any"
+            },
+            "graph": {
+              "name": "Any"
+            }
+          },
+          "exact": true,
+          "orderless": true
+        },
+        {
+          "body": [
+            {
+              "subject": {
+                "name": "Any"
+              },
+              "predicate": {
+                "name": "NoneOf",
+                "value": [
+                  "<not_f>",
+                  "<f>"
+                ]
+              },
+              "object": {
+                "name": "Any"
+              },
+              "graph": {
+                "name": "Any"
+              }
+            },
+            {
+              "subject": {
+                "name": "Any"
+              },
+              "predicate": {
+                "name": "NoneOf",
+                "value": [
+                  "<not_f>",
+                  "<f>"
+                ]
+              },
+              "object": {
+                "name": "Any"
+              },
+              "graph": {
+                "name": "Any"
+              }
+            },
+            {
+              "subject": {
+                "name": "Any"
+              },
+              "predicate": {
+                "name": "NoneOf",
+                "value": [
+                  "<not_f>",
+                  "<f>"
+                ]
+              },
+              "object": {
+                "name": "Any"
+              },
+              "graph": {
+                "name": "Any"
+              }
+            }
+          ],
+          "head": {
+            "subject": {
+              "name": "Any"
+            },
+            "predicate": {
+              "name": "Constant",
+              "value": "<f>"
+            },
+            "object": {
+              "name": "Any"
+            },
+            "graph": {
+              "name": "Any"
+            }
+          },
+          "exact": true,
+          "orderless": true
+        },
+        {
+          "body": [
+            {
+              "subject": {
+                "name": "Any"
+              },
+              "predicate": {
+                "name": "NoneOf",
+                "value": [
+                  "<not_f>",
+                  "<f>"
+                ]
+              },
+              "object": {
+                "name": "Any"
+              },
+              "graph": {
+                "name": "Any"
+              }
+            },
+            {
+              "subject": {
+                "name": "Any"
+              },
+              "predicate": {
+                "name": "NoneOf",
+                "value": [
+                  "<not_f>",
+                  "<f>"
+                ]
+              },
+              "object": {
+                "name": "Any"
+              },
+              "graph": {
+                "name": "Any"
+              }
+            },
+            {
+              "subject": {
+                "name": "Any"
+              },
+              "predicate": {
+                "name": "NoneOf",
+                "value": [
+                  "<not_f>",
+                  "<f>"
+                ]
+              },
+              "object": {
+                "name": "Any"
+              },
+              "graph": {
+                "name": "Any"
+              }
+            },
+            {
+              "subject": {
+                "name": "Any"
+              },
+              "predicate": {
+                "name": "NoneOf",
+                "value": [
+                  "<not_f>",
+                  "<f>"
+                ]
+              },
+              "object": {
+                "name": "Any"
+              },
+              "graph": {
+                "name": "Any"
+              }
+            }
+          ],
+          "head": {
+            "subject": {
+              "name": "Any"
+            },
+            "predicate": {
+              "name": "Constant",
+              "value": "<f>"
+            },
+            "object": {
+              "name": "Any"
+            },
+            "graph": {
+              "name": "Any"
+            }
+          },
+          "exact": true,
+          "orderless": true
+        },
+        {
+          "body": [
+            {
+              "subject": {
+                "name": "Any"
+              },
+              "predicate": {
+                "name": "NoneOf",
+                "value": [
+                  "<not_f>",
+                  "<f>"
+                ]
+              },
+              "object": {
+                "name": "Any"
+              },
+              "graph": {
+                "name": "Any"
+              }
+            },
+            {
+              "subject": {
+                "name": "Any"
+              },
+              "predicate": {
+                "name": "NoneOf",
+                "value": [
+                  "<not_f>",
+                  "<f>"
+                ]
+              },
+              "object": {
+                "name": "Any"
+              },
+              "graph": {
+                "name": "Any"
+              }
+            },
+            {
+              "subject": {
+                "name": "Any"
+              },
+              "predicate": {
+                "name": "NoneOf",
+                "value": [
+                  "<not_f>",
+                  "<f>"
+                ]
+              },
+              "object": {
+                "name": "Any"
+              },
+              "graph": {
+                "name": "Any"
+              }
+            },
+            {
+              "subject": {
+                "name": "Any"
+              },
+              "predicate": {
+                "name": "NoneOf",
+                "value": [
+                  "<not_f>",
+                  "<f>"
+                ]
+              },
+              "object": {
+                "name": "Any"
+              },
+              "graph": {
+                "name": "Any"
+              }
+            },
+            {
+              "subject": {
+                "name": "Any"
+              },
+              "predicate": {
+                "name": "NoneOf",
+                "value": [
+                  "<not_f>",
+                  "<f>"
+                ]
+              },
+              "object": {
+                "name": "Any"
+              },
+              "graph": {
+                "name": "Any"
+              }
+            }
+          ],
+          "head": {
+            "subject": {
+              "name": "Any"
+            },
+            "predicate": {
+              "name": "Constant",
+              "value": "<f>"
+            },
+            "object": {
+              "name": "Any"
+            },
+            "graph": {
+              "name": "Any"
+            }
+          },
+          "exact": true,
+          "orderless": true
+        }
+      ],
+      "constraints": [
+        {
+          "name": "WithoutConstants"
+        },
+        {
+          "name": "ConstantsForPredicates",
+          "values": [
+            {
+              "predicate": "<has_property>",
+              "position": "Object"
+            }
+          ]
+        }
+      ],
+      "parallelism": 0
+    }
+  },
+  {
+    "name": "ComputeSupport",
+    "parameters": {
+      "name": "Support",
+      "min": 1
+    }
+  },
+  {
+    "name": "ComputeConfidence",
+    "parameters": {
+      "name": "StandardConfidence",
+      "min": 0.5
+    }
+  },
+  {
+    "name": "SortRuleset",
+    "parameters": {
+      "by": []
+    }
+  },
+  {
+    "name": "Prune",
+    "parameters": {
+      "strategy": "DataCoveragePruning",
+      "onlyFunctionalProperties": false,
+      "onlyExistingTriples": true,
+      "injectiveMapping": true
+    }
+  },
+  {
+    "name": "Predict",
+    "parameters": {
+      "rules": [],
+      "chooseTestSet": false,
+      "predictedResults": [],
+      "headVariablePreMapping": {
+        "type": "noMapping"
+      },
+      "injectiveMapping": true,
+      "mergeTestAndTrainForPrediction": true,
+      "onlyTestCoveredPredictions": false
+    }
+  },
+  {
+    "name": "GroupPredictions",
+    "parameters": {
+      "useScorer": true,
+      "scorer": {
+        "type": "maximum",
+        "confidence": "default"
+      },
+      "useConsumer": false,
+      "confidence": "default"
+    }
+  },
+  {
+    "name": "ToPredictionTasks",
+    "parameters": {
+      "confidence": "default",
+      "generator": {
+        "type": "testPatterns",
+        "patterns": [
+          {
+            "p": "<f>",
+            "targetVariable": "object"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "name": "Evaluate",
+    "parameters": {
+      "ranking": "test"
+    }
+  }
+]

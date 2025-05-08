@@ -1,0 +1,117 @@
+[
+  {
+    "name": "LoadGraph",
+    "parameters": {
+      "path": "/numeric_zendo1.nt"
+    }
+  },
+  {
+    "name": "Index",
+    "parameters": {
+      "train": [],
+      "test": []
+    }
+  },
+  {
+    "name": "AutoDiscretization",
+    "parameters": {
+      "minSupportLowerBoundOn": false,
+      "minSupportUpperBoundOn": false,
+      "minHeadSize": 2,
+      "minHeadCoverage": 0.01,
+      "maxRuleLength": 5,
+      "predicates": []
+    }
+  },
+  {
+    "name": "Index",
+    "parameters": {
+      "train": [],
+      "test": []
+    }
+  },
+  {
+    "name": "Mine",
+    "parameters": {
+      "thresholds": [
+        {
+          "name": "MinHeadSize",
+          "value": 2
+        },
+        {
+          "name": "MaxRuleLength",
+          "value": 5
+        },
+        {
+          "name": "Timeout",
+          "value": 5
+        },
+        {
+          "name": "MinHeadCoverage",
+          "value": 0.35
+        }
+      ],
+      "ruleConsumers": [
+        {
+          "name": "inMemory"
+        }
+      ],
+      "patterns": [
+        {
+          "body": [],
+          "head": {
+            "subject": {
+              "name": "Any"
+            },
+            "predicate": {
+              "name": "Constant",
+              "value": "<zendo>"
+            },
+            "object": {
+              "name": "Constant",
+              "value": "true"
+            },
+            "graph": {
+              "name": "Any"
+            }
+          },
+          "exact": false,
+          "orderless": true
+        }
+      ],
+      "constraints": [],
+      "parallelism": 0
+    }
+  },
+  {
+    "name": "ComputeConfidence",
+    "parameters": {
+      "name": "StandardConfidence",
+      "min": 0.5
+    }
+  },
+  {
+    "name": "SortRuleset",
+    "parameters": {
+      "by": [
+        {
+          "measure": "Confidence",
+          "reversed": false
+        }
+      ]
+    }
+  },
+  {
+    "name": "Prune",
+    "parameters": {
+      "strategy": "DataCoveragePruning",
+      "onlyFunctionalProperties": false,
+      "onlyExistingTriples": true,
+      "injectiveMapping": true
+    }
+  },
+  {
+    "name": "GetRules",
+    "parameters": {}
+  }
+]
