@@ -94,10 +94,11 @@ Included in the output are also calculations of the following metrics:
 
 The ruleset produced by RDFRules successfully covers all 30 positive examples.
 ### 1.2.1. Qualitative evaluation of solution similarity
-The evaluation of solution similarity follows three principles:
+The evaluation of solution similarity follows four principles:
 1. Subset of rules in the RDFRules output is identical or nearly identical with Popper solution.
 2. When evaluating similarity, small differences in interval boundaries are tolerated as long as the solutions are identical or nearly identical.
 3. A small differences in rule coverage are investigated, and if these are results of different interval boundaries or by nature of AMIE, these are tolerated.
+4. A Popper solutions match exactly, with the exception of slight differences of numerical values, which are expected and tolerated, as [Clingo answer set solver](https://potassco.org/clingo/) used in numsynth-aaai23 is non deterministic.
 
 The Popper solution, which is the information we want to extract from RDFRules have been produced by [numsynth-aaai23 branch of Popper](https://github.com/celinehocquette/numsynth-aaai23/tree/main). The solution was produced on unchanged dataset and is as follows:
 ```
