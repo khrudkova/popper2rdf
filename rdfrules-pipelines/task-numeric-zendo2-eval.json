@@ -156,6 +156,21 @@
     }
   },
   {
+    "name": "WithModes",
+    "parameters": {}
+  },
+  {
+    "name": "SelectCandidates",
+    "parameters": {
+      "predictedResults": [],
+      "useStrategy": true,
+      "strategy": {
+        "type": "topK",
+        "k": 1
+      }
+    }
+  },
+  {
     "name": "Evaluate",
     "parameters": {
       "ranking": "test"

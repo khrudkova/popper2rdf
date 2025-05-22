@@ -26,7 +26,7 @@
         },
         {
           "name": "MinHeadCoverage",
-          "value": 0.35
+          "value": 0.01
         },
         {
           "name": "LocalTimeout",
@@ -72,10 +72,32 @@
     }
   },
   {
+    "name": "ComputeSupport",
+    "parameters": {
+      "name": "HeadCoverage",
+      "min": 0.01
+    }
+  },
+  {
     "name": "ComputeConfidence",
     "parameters": {
       "name": "StandardConfidence",
       "min": 0.75
+    }
+  },
+  {
+    "name": "SortRuleset",
+    "parameters": {
+      "by": []
+    }
+  },
+  {
+    "name": "Prune",
+    "parameters": {
+      "strategy": "DataCoveragePruning",
+      "onlyFunctionalProperties": false,
+      "onlyExistingTriples": true,
+      "injectiveMapping": true
     }
   },
   {
