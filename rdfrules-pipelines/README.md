@@ -1,4 +1,7 @@
 # popper2rdf evaluation experiments
+- [RDFRules](https://github.com/propi/rdfrules) v1.9.0.
+- [Popper](https://github.com/logic-and-learning-lab/Popper/tree/main) v4.3.0
+- [numsynth-aaai23](https://github.com/celinehocquette/numsynth-aaai23/tree/main)
 # 1. numeric-zendo1
 - dataset [source](https://github.com/celinehocquette/numsynth-aaai23/tree/main/numsynth/examples/numeric-zendo1)
 - dataset contains 60 examples, 30 positive and 30 negative
