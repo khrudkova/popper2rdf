@@ -37,17 +37,17 @@ By clicking the arrows between nodes, it is possible to add new nodes. It is als
 By clicking on the individual nodes, it is possible to set the parameters for rule mining.
 
 For this pipeline, following settings are used:
-| Parameter             | Setting                                         |
-|-----------------------|-------------------------------------------------|
-| Discretize            | Settings in Table \ref{tab:zendo1-rdfrules-disc} |
-| Maximun rule length   | 5                                               |
-| Minimum head size     | 2                                               |
-| Minimum head coverage | 0.35                                            |
-| Timeout               | 5                                               |
-| Patterns              | \* => (? <zendo> true) |
-| CWA confidence        | 0.5                                             |
-| Sort                  | CWA confidence                                  |
-| Pruning               | Data coverage pruning                           |
+| Mining parameter      | Settings                                        |Parameter description|
+|-----------------------|-------------------------------------------------|-------|
+| Discretize            | Settings in table bellow                        |       |
+| Maximun rule length   | 5                                               |       |
+| Minimum head size     | 2                                               |       |
+| Minimum head coverage | 0.35                                            |       |
+| Timeout               | 5                                               |       |
+| Patterns              | \* => (? <zendo> true)                          |       |
+| CWA confidence        | 0.5                                             |       |
+| Sort                  | CWA confidence                                  |       |
+| Pruning               | Data coverage pruning                           |       |
 
 Since dataset **numeric-zendo1** contains numerical values, we need to discretize the numerical values first to create intervals. RDFRules provides an option for discretization. The settings used to discretize the dataset in this example are as follows:
 | Parameter             | Setting |
@@ -71,11 +71,19 @@ Under these settings, RDFRules returns three rules.
 ( ?c <color> <red> ) ∧ ( ?c <rotation#discretized_level_1> [ 3.2199999999999998 ; 6.24 ] ) ∧ ( ?b <contact> ?c ) ∧ ( ?a <piece> ?b ) ⇒ ( ?a <zendo> true )
 ```
 ## 1.2. Evaluation
+### 1.2.1. Load `-eval` pipeline
 Download the `task-numeric-zendo1-eval.json` pipeline and load it to RDFRules. When loaded, the pipeline should look like this:
 
 <img src="https://github.com/user-attachments/assets/f45e44ab-f114-4cac-8b78-6b179f8e0d8e" width="380" height="800"></img>
 
 By clicking the arrows between nodes, it is possible to add new nodes. It is also possible to remove existing nodes.
+### 1.2.2. Setting the parameters
+
+| Evaluation parameter  | Settings                                        |Parameter description|
+|-----------------------|-------------------------------------------------|---------------------|
+| TODO                  |                                                 |                     |
+
+
 The result of the run of this pipeline is table containing following confusion matrix:
 
 |                 | In KG     | Not in KG |
