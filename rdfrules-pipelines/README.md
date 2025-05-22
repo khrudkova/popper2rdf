@@ -73,33 +73,27 @@ Under these settings, RDFRules returns three rules.
 ## 1.2. Evaluation
 Download the `task-numeric-zendo1-eval.json` pipeline and load it to RDFRules. When loaded, the pipeline should look like this:
 
-<img src="https://github.com/user-attachments/assets/9383606d-b7e6-46a5-9644-40e393270634" width="400" height="800"></img>
+<img src="https://github.com/user-attachments/assets/f45e44ab-f114-4cac-8b78-6b179f8e0d8e" width="380" height="800"></img>
 
 By clicking the arrows between nodes, it is possible to add new nodes. It is also possible to remove existing nodes.
 The result of the run of this pipeline is table containing following confusion matrix:
 
 |                 | In KG     | Not in KG |
 |-----------------|-----------|-----------|
-| Predicted       | 30        | 2         |
-| Not predicted   | 30        |           |
+| Predicted       | 58        | 2         |
+| Not predicted   | 2        |           |
 
 Included in the output are also calculations of the following metrics:
 | |          |
 |--------------------|----------|
 | Total entities (E) | 60       |
-| TP                 | 30       |
-| Precision          | 93.75%   |
-| Recall             | 50%      |
-| F-Measure          | 65.22%   |
+| TP                 | 58       |
+| Precision          | 96.67%   |
+| Recall             | 96.67%   |
+| F-Measure          | 96.67%   |
 
 The ruleset produced by RDFRules successfully covers all 30 positive examples.
 ### 1.2.1. Qualitative evaluation of solution similarity
-The evaluation of solution similarity follows four principles:
-1. Subset of rules in the RDFRules output is identical or nearly identical with Popper solution.
-2. When evaluating similarity, small differences in interval boundaries are tolerated as long as the solutions are identical or nearly identical.
-3. A small differences in rule coverage are investigated, and if these are results of different interval boundaries or by nature of AMIE, these are tolerated.
-4. A Popper solutions match exactly, with the exception of slight differences of numerical values, which are expected and tolerated, as [Clingo answer set solver](https://potassco.org/clingo/) used in numsynth-aaai23 is non deterministic.
-
 The Popper solution, which is the information we want to extract from RDFRules have been produced by [numsynth-aaai23 branch of Popper](https://github.com/celinehocquette/numsynth-aaai23/tree/main). The solution was produced on unchanged dataset and is as follows:
 ```
 ********** SOLUTION **********
