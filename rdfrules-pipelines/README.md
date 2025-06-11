@@ -105,7 +105,7 @@ Included in the output are also calculations of the following metrics:
 | F-Measure          | 96.67%   |
 
 The ruleset produced by RDFRules successfully covers all 30 positive examples.
-### 1.2.1. Qualitative evaluation of solution similarity
+### 1.2.1. Popper solution
 The Popper solution, which is the information we want to extract from RDFRules have been produced by [numsynth-aaai23 branch of Popper](https://github.com/celinehocquette/numsynth-aaai23/tree/main). The solution was produced on unchanged dataset and is as follows:
 ```
 ********** SOLUTION **********
@@ -113,4 +113,3 @@ Precision:1.00 Recall:1.00 TP:30 FN:0 TN:30 FP:0 Size:5
 zendo(A):- piece(A,B),contact(B,C),size(C,D),geq(D,4.12).
 ******************************
 ```
-RDFRules produced three rules, where **Rule 1** is almost identical to Popper results with only small differences in numerical values caused by discretization. Based on Principle 1 and 2, the solutions are therefore considered as _similar_.
