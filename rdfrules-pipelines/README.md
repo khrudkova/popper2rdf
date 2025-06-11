@@ -42,15 +42,15 @@ By clicking on the individual nodes, it is possible to set the parameters for ru
 For this pipeline, following settings are used:
 | Mining parameter      | Settings                                        |Parameter description|
 |-----------------------|-------------------------------------------------|-------|
-| Discretize            | Settings in table bellow                        |       |
-| Maximun rule length   | 5                                               |       |
-| Minimum head size     | 2                                               |       |
-| Minimum head coverage | 0.35                                            |       |
-| Timeout               | 5                                               |       |
-| Patterns              | \* => (? <zendo> true)                          |       |
-| CWA confidence        | 0.5                                             |       |
-| Sort                  | CWA confidence                                  |       |
-| Pruning               | Data coverage pruning                           |       |
+| Discretize            | Settings in table bellow                        |RDFRules can convert continuous numerical values (like age or temperature) into discrete categories or bins based on particular settings.      |
+| Maximun rule length   | 5                                               |The maximum number of atoms allowed in the body of a rule.        |
+| Minimum head size     | 2                                               |The minimum number of times the fact in the head of the rule must appear in the knowledge base.       |
+| Minimum head coverage | 0.35                                            |This metric measures how much of the evidence for the head atom is explained by the rule's body.       |
+| Timeout               | 5                                               |Timeout defines the maximum amount of time the mining algorithm is allowed to run before it automatically stops.       |
+| Patterns              | \* => (? <zendo> true)                          |Templates that constrain the shape of the rules AMIE should search for.        |
+| CWA confidence        | 0.5                                             |Closed-World Assumption Confidence. It's a traditional confidence metric .       |
+| Sort                  | CWA confidence                                  |Post-processing step in RDFRules. After the rules are mined, this function allows ordering rules based on various quality metrics like confidence, support, or head coverage.        |
+| Pruning               | Data coverage pruning                           |Data coverage pruning evaluates whether a new rule provides more explanatory power compared to the more general rules that have already been discovered.       |
 
 Since dataset **numeric-zendo1** contains numerical values, we need to discretize the numerical values first to create intervals. RDFRules provides an option for discretization. The settings used to discretize the dataset in this example are as follows:
 | Parameter             | Setting |
@@ -84,7 +84,8 @@ By clicking the arrows between nodes, it is possible to add new nodes. It is als
 
 | Evaluation parameter  | Settings                                        |Parameter description|
 |-----------------------|-------------------------------------------------|---------------------|
-| TODO                  |                                                 |                     |
+| Group predictions     |Scorer: maximum                                  |Grouping predictions clusters the discovered rules based on the predictions they make. Within each group, scorer selects the "best" rule based on a chosen scoring function.                   
+|With modes             |-|This option allows the system to show different variations or "modes" of the top-scoring rule, providing more nuanced insights into the patterns discovered.|
 
 
 The result of the run of this pipeline is table containing following confusion matrix:
