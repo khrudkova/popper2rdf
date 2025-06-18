@@ -288,7 +288,7 @@ For this pipeline, following settings are used:
 |---|---|
 | Maximum rule length | 6 |
 | Refinement timeout | 5000 ms |
-|Patterns| (? !{<not_f> , <f>} ?) => (? <f> ?) (? <not_f> , <f>} ?) ^ (? <not_f> , <f>} ?) => (? <f> ?) (? <not_f> , <f>} ?) ^ (? <not_f> , <f>} ?) ^ (? <not_f> , <f>} ?) => (? <f> ?) (? <not_f> , <f>} ?) ^ (? <not_f> , <f>} ?) ^ (? <not_f> , <f>} ?) ^ (? <not_f> , <f>} ?) => (? <f> ?) (? <not_f> , <f>} ?) ^ (? <not_f> , <f>} ?) ^ (? <not_f> , <f>} ?) ^ (? <not_f> , <f>} ?) ^ (? <not_f> , <f>} ?) => (? <f> ?)|
+|Patterns| (? <not_f> <f> ?) => (? <f> ?) (? <not_f> <f> ?) ^ (? <not_f> <f> ?) => (? <f> ?) (? <not_f> <f> ?) ^ (? <not_f> <f> ?) ^ (? <not_f> <f> ?) => (? <f> ?) (? <not_f> , <f> ?) ^ (? <not_f> <f> ?) ^ (? <not_f> <f> ?) ^ (? <not_f> <f> ?) => (? <f> ?) (? <not_f> <f> ?) ^ (? <not_f> <f> ?) ^ (? <not_f> <f> ?) ^ (? <not_f> <f> ?) ^ (? <not_f> <f> ?) => (? <f> ?)|
 | Constraints | With constants at objects position -> Without constants for selected predicates (<has_property>, object) |
 | Recompute support | Support, minimum 1 |
 | CWA confidence | 0.5 |
