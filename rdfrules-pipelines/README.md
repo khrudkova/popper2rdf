@@ -338,5 +338,3 @@ Precision:1.00 Recall:1.00 TP:4060 FN:15 TN:10000 FP:0 Size:10
 f(A,B):- movie(C,B),director(B),actor(A),movie(C,A).
 f(A,B):- movie(C,B),movie(C,A),gender(A,D),gender(B,D).
 ******************************
-```
-```
