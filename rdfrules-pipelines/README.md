@@ -1,4 +1,7 @@
 # popper2rdf evaluation experiments
+- [RDFRules](https://github.com/propi/rdfrules) v1.9.0.
+- [Popper](https://github.com/logic-and-learning-lab/Popper/tree/main) v4.3.0
+- [numsynth-aaai23](https://github.com/celinehocquette/numsynth-aaai23/tree/main)
 # 1. numeric-zendo1
 - dataset [source](https://github.com/celinehocquette/numsynth-aaai23/tree/main/numsynth/examples/numeric-zendo1)
 - dataset contains 60 examples, 30 positive and 30 negative
@@ -26,28 +29,28 @@ The same data as RDF triples:
 <p0_0> <rotation> "0.89"^^<http://www.w3.org/2001/XMLSchema#double> .
 ```
 To obtain KG from the Prolog atoms, run `popper2rdf` or load the pipeline - the transformed dataset should be loaded into pipeline. To load pipeline, download the `task-numeric-zendo1-rules.json` pipeline to mine rules and `task-numeric-zendo1-eval.json` pipeline, to get the evaluation results, go to [RDFRules GUI](https://rdfrules.vse.cz/index.html), select _create a new pipeline_ and _load pipeline from a local file_ in the right upper corner. Load the downloaded `.json` files.
-## 1.1. Mining rules
-### 1.1.1. Load `-rules` pipeline
+## 1.1 Mining rules
+### 1.1.1 Load `-rules` pipeline
 Download the `task-numeric-zendo1-rules.json` pipeline and load it to RDFRules. When loaded, the pipeline should look like this:
 
 <img src="https://github.com/user-attachments/assets/47524c05-319b-4985-8cd8-505d487f604e" width="400" height="800"></img>
 
 By clicking the arrows between nodes, it is possible to add new nodes. It is also possible to remove existing nodes.
-### 1.1.2. Setting the parameters
+### 1.1.2 Setting the parameters
 By clicking on the individual nodes, it is possible to set the parameters for rule mining.
 
 For this pipeline, following settings are used:
-| Parameter             | Setting                                         |
-|-----------------------|-------------------------------------------------|
-| Discretize            | Settings in Table \ref{tab:zendo1-rdfrules-disc} |
-| Maximun rule length   | 5                                               |
-| Minimum head size     | 2                                               |
-| Minimum head coverage | 0.35                                            |
-| Timeout               | 5                                               |
-| Patterns              | \* => (? <zendo> true) |
-| CWA confidence        | 0.5                                             |
-| Sort                  | CWA confidence                                  |
-| Pruning               | Data coverage pruning                           |
+| Mining parameter      | Settings                                        |Parameter description|
+|-----------------------|-------------------------------------------------|-------|
+| Discretize            | Settings in table bellow                        |RDFRules can convert continuous numerical values (like age or temperature) into discrete categories or bins based on particular settings.      |
+| Maximun rule length   | 5                                               |The maximum number of atoms allowed in the body of a rule.        |
+| Minimum head size     | 2                                               |The minimum number of times the fact in the head of the rule must appear in the knowledge base.       |
+| Minimum head coverage | 0.35                                            |This metric measures how much of the evidence for the head atom is explained by the rule's body.       |
+| Timeout               | 5                                               |Timeout defines the maximum amount of time the mining algorithm is allowed to run before it automatically stops.       |
+| Patterns              | \* => (? <zendo> true)                          |Templates that constrain the shape of the rules AMIE should search for.        |
+| CWA confidence        | 0.5                                             |Closed-World Assumption Confidence. It's a traditional confidence metric .       |
+| Sort                  | CWA confidence                                  |Post-processing step in RDFRules. After the rules are mined, this function allows ordering rules based on various quality metrics like confidence, support, or head coverage.        |
+| Pruning               | Data coverage pruning                           |Data coverage pruning evaluates whether a new rule provides more explanatory power compared to the more general rules that have already been discovered.       |
 
 Since dataset **numeric-zendo1** contains numerical values, we need to discretize the numerical values first to create intervals. RDFRules provides an option for discretization. The settings used to discretize the dataset in this example are as follows:
 | Parameter             | Setting |
@@ -57,7 +60,7 @@ Since dataset **numeric-zendo1** contains numerical values, we need to discretiz
 | Maximum rule length   | 5       |
 
 Under these settings, RDFRules returns three rules.
-### 1.1.3. Mined rules
+### 1.1.3 Mined rules
 **Rule 1** produced by RDFRules on **numeric-zendo1** dataset states that _winning condition for a zendo game A is when there is a piece B in a game A, piece B is in contact with piece C and piece C has size between 4,945 and 9,94_.
 ```
 ( ?c <size#discretized_level_1> [ 4.945 ; 9.94 ] ) ∧ ( ?c <contact> ?b ) ∧ ( ?a <piece> ?b ) ⇒ ( ?a <zendo> true )
@@ -70,36 +73,39 @@ Under these settings, RDFRules returns three rules.
 ```
 ( ?c <color> <red> ) ∧ ( ?c <rotation#discretized_level_1> [ 3.2199999999999998 ; 6.24 ] ) ∧ ( ?b <contact> ?c ) ∧ ( ?a <piece> ?b ) ⇒ ( ?a <zendo> true )
 ```
-## 1.2. Evaluation
+## 1.2 Evaluation
+### 1.2.1 Load `-eval` pipeline
 Download the `task-numeric-zendo1-eval.json` pipeline and load it to RDFRules. When loaded, the pipeline should look like this:
 
-<img src="https://github.com/user-attachments/assets/9383606d-b7e6-46a5-9644-40e393270634" width="400" height="800"></img>
+<img src="https://github.com/user-attachments/assets/f45e44ab-f114-4cac-8b78-6b179f8e0d8e" width="380" height="800"></img>
 
 By clicking the arrows between nodes, it is possible to add new nodes. It is also possible to remove existing nodes.
+### 1.2.2 Setting the parameters
+
+| Evaluation parameter  | Settings                                        |Parameter description|
+|-----------------------|-------------------------------------------------|---------------------|
+| Group predictions     |Scorer: maximum                                  |Grouping predictions clusters the discovered rules based on the predictions they make. Within each group, scorer selects the "best" rule based on a chosen scoring function.                   
+|With modes             |-|This option allows the system to show different variations or "modes" of the top-scoring rule, providing more nuanced insights into the patterns discovered.|
+
+
 The result of the run of this pipeline is table containing following confusion matrix:
 
 |                 | In KG     | Not in KG |
 |-----------------|-----------|-----------|
-| Predicted       | 30        | 2         |
-| Not predicted   | 30        |           |
+| Predicted       | 58        | 2         |
+| Not predicted   | 2        |           |
 
 Included in the output are also calculations of the following metrics:
 | |          |
 |--------------------|----------|
 | Total entities (E) | 60       |
-| TP                 | 30       |
-| Precision          | 93.75%   |
-| Recall             | 50%      |
-| F-Measure          | 65.22%   |
+| TP                 | 58       |
+| Precision          | 96.67%   |
+| Recall             | 96.67%   |
+| F-Measure          | 96.67%   |
 
 The ruleset produced by RDFRules successfully covers all 30 positive examples.
-### 1.2.1. Qualitative evaluation of solution similarity
-The evaluation of solution similarity follows four principles:
-1. Subset of rules in the RDFRules output is identical or nearly identical with Popper solution.
-2. When evaluating similarity, small differences in interval boundaries are tolerated as long as the solutions are identical or nearly identical.
-3. A small differences in rule coverage are investigated, and if these are results of different interval boundaries or by nature of AMIE, these are tolerated.
-4. A Popper solutions match exactly, with the exception of slight differences of numerical values, which are expected and tolerated, as [Clingo answer set solver](https://potassco.org/clingo/) used in numsynth-aaai23 is non deterministic.
-
+### 1.2.1 Popper solution
 The Popper solution, which is the information we want to extract from RDFRules have been produced by [numsynth-aaai23 branch of Popper](https://github.com/celinehocquette/numsynth-aaai23/tree/main). The solution was produced on unchanged dataset and is as follows:
 ```
 ********** SOLUTION **********
@@ -107,4 +113,228 @@ Precision:1.00 Recall:1.00 TP:30 FN:0 TN:30 FP:0 Size:5
 zendo(A):- piece(A,B),contact(B,C),size(C,D),geq(D,4.12).
 ******************************
 ```
-RDFRules produced three rules, where **Rule 1** is almost identical to Popper results with only small differences in numerical values caused by discretization. Based on Principle 1 and 2, the solutions are therefore considered as _similar_.
+# 2. numeric-zendo2
+- dataset [source](https://github.com/celinehocquette/numsynth-aaai23/tree/main/numsynth/examples/numeric-zendo2)
+- dataset contains 60 examples, 30 positive and 30 negative
+
+Obtaining data and pipelines same as **numeric-zendo1**.
+## 2.1 Mining rules
+### 2.1.1 Load `-rules` pipeline
+Same as **numeric-zendo1**.
+### 2.1.2 Setting the parameters
+By clicking on the individual nodes, it is possible to set the parameters for rule mining.
+
+For this pipeline, following settings are used:
+| Mining parameter      | Settings                                     |
+|-----------------------|----------------------------------------------|
+| Discretize            | Settings in table bellow     | |
+| Maximun rule length   | **6** |
+| Minimum head size     | 2                                            |
+| Minimum head coverage | 0.35                                         |
+| Timeout               | 5                                            |
+| Patterns              | \* => (? <zendo> true) |
+| Constraints           | With constants at the object position        |
+| CWA confidence        | 0.5                                          |
+| Sort                  | CWA confidence                               |
+| Pruning               | Data coverage pruning                        |
+
+Since dataset **numeric-zendo2** contains numerical values, we need to discretize the numerical values first to create intervals. RDFRules provides an option for discretization. The settings used to discretize the dataset in this example are as follows:
+| Parameter             | Setting |
+|-----------------------|---------|
+| Minimum head size   | 2    |
+| Minimum head coverage | 0.01 |
+| Maximum rule length | 5    |
+
+Under these settings, RDFRules returns four rules.
+### 2.1.3 Mined rules
+```
+( ?d <orientation> <lhs> ) ∧ ( ?d <size#discretized_level_4> ?c ) ∧ ( ?b <size#discretized_level_4> ?c ) ∧ ( ?b <rotation#discretized_level_2> [ 1.605 ; 3.34 ] ) ∧ ( ?a <piece> ?b ) ⇒ ( ?a <zendo> true )
+```
+```
+( ?e <orientation> <upright> ) ∧ ( ?d <contact> ?e ) ∧ ( ?d <rotation#discretized_level_4> ?c ) ∧ ( ?b <rotation#discretized_level_4> ?c ) ∧ ( ?a <piece> ?b ) ⇒ ( ?a <zendo> true )
+```
+```
+( ?d <color> <green> ) ∧ ( ?d <size#discretized_level_4> [ 7.445 ; 8.03 ] ) ∧ ( ?d <rotation#discretized_level_3> ?c ) ∧ ( ?b <rotation#discretized_level_3> ?c ) ∧ ( ?a <piece> ?b ) ⇒ ( ?a <zendo> true )
+```
+```
+( ?c <position_p2#discretized_level_1> [ 0 ; 5.365 ) ) ∧ ( ?c <position_p3#discretized_level_1> [ 0.08588908852349572 ; 5.38 ) ) ∧ ( ?c <position_p1> ?b ) ∧ ( ?a <piece> ?b ) ⇒ ( ?a <zendo> true )
+```
+## 2.2 Evaluation
+### 2.2.1 Load `-eval` pipeline
+Same as **numeric-zendo1**.
+### 2.2.2 Setting the parameters
+
+| Evaluation parameter  | Settings                                        |Parameter description|
+|-----------------------|-------------------------------------------------|---------------------|
+| Group predictions     |Scorer: maximum                                  |Grouping predictions clusters the discovered rules based on the predictions they make. Within each group, scorer selects the "best" rule based on a chosen scoring function.                   
+|With modes             |-|This option allows the system to show different variations or "modes" of the top-scoring rule, providing more nuanced insights into the patterns discovered.|
+
+
+The result of the run of this pipeline is table containing following confusion matrix:
+
+|                 | In KG     | Not in KG |
+|-----------------|-----------|-----------|
+| Predicted       | 30        | 4         |
+| Not predicted   | 30        |           |
+
+Included in the output are also calculations of the following metrics:
+| |          |
+|--------------------|----------|
+| Total entities (E) | 60       |
+| TP                 | 30       |
+| Precision          | 88.24%   |
+| Recall             | 50%   |
+| F-Measure          | 63.83%   |
+
+The ruleset produced by RDFRules successfully covers all 30 positive examples.
+### 2.2.3 Popper solution
+The Popper solution, which is the information we want to extract from RDFRules have been produced by [numsynth-aaai23 branch of Popper](https://github.com/celinehocquette/numsynth-aaai23/tree/main). The solution was produced on unchanged dataset and is as follows:
+```
+********** SOLUTION **********
+Precision:1.00 Recall:1.00 TP:30 FN:0 TN:30 FP:0 Size:10
+zendo(A):- piece(A,D),rotation(D,B),geq(B,0.94),leq(B,4.309).
+zendo(A):- piece(A,D),position(D,B,E),add(E,B,F),leq(F,6.459).
+******************************
+```
+# 3. trains1
+- dataset [source](https://github.com/logic-and-learning-lab/Popper/tree/main/examples/trains1)
+- dataset contains 1 000 examples, 394 positive and 606 negative
+
+The trains dataset is a well-known dataset by Larson and Michalski widely used in relational learning. The dataset contains information about trains, their cars, and their various properties, such as roof, wheels, load, and additional properties about the load. The goal is, based on these properties, to induce whether the train is going to the east or to the west.
+
+Obtaining data and pipelines same as **numeric-zendo1**.
+## 3.1 Mining rules
+### 3.1.1 Load `-rules` pipeline
+Same as **numeric-zendo1**.
+### 3.1.2 Setting the parameters
+By clicking on the individual nodes, it is possible to set the parameters for rule mining.
+
+For this pipeline, following settings are used:
+| Mining parameter     | Settings                              |
+| ------------------- | ------------------------------------ |
+| Maximun rule length  | 6                                     |
+| Minimum head size    | 2                                     |
+| Mininmum head coverage | 0.35                                  |
+| Refinement timeout   | 1000 ms                               |
+| Patterns             | \* => (? <f> true) |
+| Constraints          | With constants at objects position    |
+| CWA confidence       | 0.75                                  |
+
+Under these settings, RDFRules returns four rules.
+### 3.1.3 Mined rules
+```
+( ?c <has_property> <roof_closed> ) ∧ ( ?b <has_property> <three_wheels> ) ∧ ( ?a <has_car> ?c ) ∧ ( ?a <has_car> ?b ) ⇒ ( ?a <f> true )
+```
+```
+( ?c <has_property> <roof_closed> ) ∧ ( ?b <has_property> <three_wheels> ) ∧ ( ?a <has_car> ?c ) ∧ ( ?a <has_car> ?b ) ∧ ( ?a <has_property> <train> ) ⇒ ( ?a <f> true )
+```
+```
+( ?c <has_property> ?d ) ∧ ( ?b <has_property> ?d ) ∧ ( ?b <has_property> <three_wheels> ) ∧ ( ?a <has_car> ?c ) ∧ ( ?a <has_car> ?b ) ⇒ ( ?a <f> true )
+```
+```
+( ?c <has_property> <three_wheels> ) ∧ ( ?c <has_property> <long> ) ∧ ( ?b <has_property> <roof_closed> ) ∧ ( ?a <has_car> ?c ) ∧ ( ?a <has_car> ?b ) ⇒ ( ?a <f> true )
+```
+## 3.2 Evaluation
+### 3.2.1 Load `-eval` pipeline
+Same as **numeric-zendo1**.
+### 3.2.2 Setting the parameters
+
+| Evaluation parameter  | Settings                                        |
+|-----------------------|-------------------------------------------------|
+| Group predictions     |Scorer: maximum                                  |                   
+|With modes             |-|
+
+
+The result of the run of this pipeline is table containing following confusion matrix:
+
+|                 | In KG     | Not in KG |
+|-----------------|-----------|-----------|
+| Predicted       | 378        | 167         |
+| Not predicted   | 622        |           |
+
+Included in the output are also calculations of the following metrics:
+| |          |
+|--------------------|----------|
+| Total entities (E) | 1 000       |
+| TP                 | 378       |
+| Precision          | 69.36%   |
+| Recall             | 37.8%   |
+| F-Measure          | 48.93%   |
+
+The ruleset produced by RDFRules successfully 378 positive examples out of 394.
+### 3.2.3 Popper solution
+The Popper solution, which is the information we want to match on transformed dataset was produced by [Popper](https://github.com/logic-and-learning-lab/Popper). The solution was produced on unchanged dataset and is as follows:
+```
+********** SOLUTION **********
+Precision:1.00 Recall:1.00 TP:394 FN:0 TN:606 FP:0 Size:6
+f(A):- has_car(A,C),three_wheels(C),has_car(A,B),long(B),roof_closed(B).
+******************************
+```
+# 4. imdb3
+- dataset [source](https://github.com/logic-and-learning-lab/Popper/tree/main/examples/trains1)
+- dataset contains 121 801 examples, 4 075 positive and 117 726 negative
+
+The Internet Movie Database (IMDb) is an online database containing information about movies, TV shows, and video games, as well as actors, directors, and other film industry professionals.
+
+Obtaining data and pipelines same as **numeric-zendo1**.
+## 4.1 Mining rules
+### 4.1.1 Load `-rules` pipeline
+Same as **numeric-zendo1**.
+### 4.1.2 Setting the parameters
+By clicking on the individual nodes, it is possible to set the parameters for rule mining.
+
+For this pipeline, following settings are used:
+| Mining parameter | Settings |
+|---|---|
+| Maximum rule length | 6 |
+| Refinement timeout | 5000 ms |
+|Patterns| (? <not_f> <f> ?) => (? <f> ?) (? <not_f> <f> ?) ^ (? <not_f> <f> ?) => (? <f> ?) (? <not_f> <f> ?) ^ (? <not_f> <f> ?) ^ (? <not_f> <f> ?) => (? <f> ?) (? <not_f> , <f> ?) ^ (? <not_f> <f> ?) ^ (? <not_f> <f> ?) ^ (? <not_f> <f> ?) => (? <f> ?) (? <not_f> <f> ?) ^ (? <not_f> <f> ?) ^ (? <not_f> <f> ?) ^ (? <not_f> <f> ?) ^ (? <not_f> <f> ?) => (? <f> ?)|
+| Constraints | With constants at objects position -> Without constants for selected predicates (<has_property>, object) |
+| Recompute support | Support, minimum 1 |
+| CWA confidence | 0.5 |
+| Sort | CWA confidence |
+| Pruning | Data coverage pruning |
+
+Under these settings, RDFRules returns two rules.
+### 4.1.3 Mined rules
+```
+( ?d <movie> ?b ) ∧ ( ?b <gender> ?c ) ∧ ( ?d <movie> ?a ) ∧ ( ?a <gender> ?c ) ⇒ ( ?a <f> ?b )
+```
+```
+( ?b <has_property> <director> ) ∧ ( ?c <movie> ?b ) ∧ ( ?c <movie> ?a ) ∧ ( ?a <has_property> <actor> ) ⇒ ( ?a <f> ?b )
+```
+
+## 4.2 Evaluation
+### 4.2.1 Load `-eval` pipeline
+Same as **numeric-zendo1**.
+### 4.2.2 Setting the parameters
+
+| Evaluation parameter  | Settings                                        |
+|-----------------------|-------------------------------------------------|
+| Group predictions     |Scorer: maximum                                  |                   
+
+The result of the run of this pipeline is table containing following confusion matrix:
+
+|                 | In KG     | Not in KG |
+|-----------------|-----------|-----------|
+| Predicted       | 3726        | 0         |
+| Not predicted   | 0        |           |
+
+Included in the output are also calculations of the following metrics:
+| |          |
+|--------------------|----------|
+| Total entities (E) | 3 726       |
+| TP                 | 3 726       |
+| Precision          | 100%   |
+| Recall             | 100%   |
+| F-Measure          | 100%   |
+
+The ruleset produced by RDFRules successfully 3 726 positive examples out of 4 075. The difference in number of examples (despite the metrics being 100%) is caused by RDFRules/AMIE pruning of reflexive relations.
+### 4.2.3 Popper solution
+The Popper solution, which is the information we want to match on transformed dataset was produced by [Popper](https://github.com/logic-and-learning-lab/Popper). The solution was produced on unchanged dataset and is as follows:
+```
+********** SOLUTION **********
+Precision:1.00 Recall:1.00 TP:4060 FN:15 TN:10000 FP:0 Size:10
+f(A,B):- movie(C,B),director(B),actor(A),movie(C,A).
+f(A,B):- movie(C,B),movie(C,A),gender(A,D),gender(B,D).
+******************************
